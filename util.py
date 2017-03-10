@@ -3,6 +3,7 @@ import numpy as np
 import os, sys
 import PIL.Image as Image
 
+
 def normalize(X, low, high, dtype=None):
     X = np.asarray(X)
     minX, maxX = np.min(X), np.max(X)
@@ -17,14 +18,21 @@ def normalize(X, low, high, dtype=None):
     return np.asarray(X, dtype=dtype)
 
 
-def read_images():
-    c = 0
+def read_images(sz=None):
     X, y = [], []
     images = [1, 2, 3, 4, 5, 6]
 
     for i in images:
-        img = cv2.imread('exercise-' + i + 'jpg')
+        path = 'exercise-' + `i` + '.jpg'
+
+        img = cv2.imread(path, 0) # Read image
+
         X.append(np.asarray(img, dtype=np.uint8))
+        cv2.imshow(path, img)
+        k = cv2.waitKey(0)
+        if k == 27:  # wait for ESC key to exit
+            cv2.destroyAllWindows()
+
     return [X, images]
 
 
