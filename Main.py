@@ -1,11 +1,5 @@
-from subspace import pca
-from util import normalize, asRowMatrix, read_images
+import cv2
 
-if __name__ == '__main__':
+im = cv2.imread("exercise-1.jpg")
 
-    # read images
-    [X, y] = read_images()
-
-    #do a pca
-    [D, W, mu] = pca(asRowMatrix(X), y)
 
