@@ -1,65 +1,24 @@
-import cv2
-import numpy as np
-from PIL import Image
-from matplotlib import pyplot as plt
+from Plot import plotImage, plotChannel
+from Read import readImage, readSrc
+from Convert import convert, ych, cbch, crch
+from Binary import binaryConversion, binaryMorphology
+from Edge import EdgeDetector, EdgePlot, prepare
 
-src = cv2.imread("exercise-4.jpg")
-img = Image.open("exercise-4.jpg")
-res = src.copy()
+img = readImage(4)
+copy = readSrc(4)
+edge_array = prepare(4)
+
 img = img.convert('YCbCr')
-ycbcr = np.array(img)
+ycbcr = convert(img)
 
-Y = 0
-Cb = 1
-Cr = 2
+cbChannel = cbch(img)
+crChannel = crch(img)
 
-YCbCr = list(img.getdata())
-imYCbCr = np.reshape(YCbCr, (img.size[1], img.size[0], 3))
-imYCbCr = imYCbCr.astype(np.uint8)
+copy = binaryConversion(copy, cbChannel, crChannel)
+copy = binaryMorphology(copy)
 
-yChannel = Image.fromarray(imYCbCr[:,:,Y], "L") #L is for 8-bit pixels (mode)
-cbChannel = Image.fromarray(imYCbCr[:,:,Cb], "L")
-crChannel = Image.fromarray(imYCbCr[:,:,Cr], "L")
+# edge = EdgeDetector(edge_array)
+# EdgePlot (edge)
 
-# arrCB = np.asarray(cbChannel)
-# arrCR = np.asarray(crChannel)
-# plt.hist(arrCB)
-# plt.show()
-# plt.hist(arrCR)
-# plt.show()
-
-white = [255,255,255]
-black = [0,0,0]
-
-for (x,y), pixel in np.ndenumerate(cbChannel):
-    if( pixel >=105 and pixel <= 135 ):
-        res[x,y,:] = white
-    else:
-        res[x,y,:] = black
-
-for (x,y), pixel in np.ndenumerate(crChannel):
-    if( pixel >=140 and pixel <= 165 ):
-        res[x,y,:] = white
-    else:
-        res[x,y,:] = black
-
-
-
-plt.imshow(res)
-plt.show()
-
-
-#Show images with effect of each channel
-# yChannel.show()
-# cbChannel.show()
-# crChannel.show()
-
-
-
-
-
-
-
-
-
+# plotImage(copy)
 
