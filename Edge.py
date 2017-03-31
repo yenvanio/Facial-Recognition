@@ -17,11 +17,8 @@ def prepare(i):
     array = np.array(im_grey)
     return array
 
-# def combine(copy, edge):
-#     img1 = Image.fromarray(copy)
-#     img2 = Image.fromarray(edge)
-#
-#     img = img1.paste(img2, (0,0))
-#
-#     plt.imshow(img)
-#     plt.show()
+def twoD(x):
+    a = Image.fromarray(x)
+    b = a.convert('L')
+    c = np.array(b)
+    return c
