@@ -2,7 +2,7 @@ from Plot import plotImage, plotChannel
 from Read import readImage, readSrc
 from Convert import convert, ych, cbch, crch
 from Binary import binaryConversion, binaryMorphology
-from Edge import EdgeDetector, EdgePlot, prepare
+from Edge import EdgeDetector, EdgePlot, prepare, combine
 
 img = readImage(4)
 copy = readSrc(4)
@@ -17,8 +17,5 @@ crChannel = crch(img)
 copy = binaryConversion(copy, cbChannel, crChannel)
 copy = binaryMorphology(copy)
 
-# edge = EdgeDetector(edge_array)
-# EdgePlot (edge)
-
-# plotImage(copy)
-
+edge = EdgeDetector(edge_array)
+# combine(copy, edge)
